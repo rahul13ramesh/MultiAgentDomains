@@ -68,24 +68,24 @@ class GridEnv(MultiAgentGrid):
         for i in range(self.numAgents):
 
             dist1 = np.min(np.sum(
-                np.absolute(self.landmarks - self.agents[i]),
+                np.absolute(self.agents - self.landmarks[i]),
                 axis=1))
 
             dist2 = np.min(
                 np.sum(np.absolute(
-                    np.absolute(self.landmarks - self.agents[i]) -
+                    np.absolute(self.agents - self.landmarks[i]) -
                     [self.gridSize, self.gridSize]),
                     axis=1))
 
             dist3 = np.min(
                 np.sum(np.absolute(
-                    np.absolute(self.landmarks - self.agents[i]) -
+                    np.absolute(self.agents - self.landmarks[i]) -
                     [self.gridSize, 0]),
                     axis=1))
 
             dist4 = np.min(
                 np.sum(np.absolute(
-                    np.absolute(self.landmarks - self.agents[i]) -
+                    np.absolute(self.agents - self.landmarks[i]) -
                     [0, self.gridSize]),
                     axis=1))
 
