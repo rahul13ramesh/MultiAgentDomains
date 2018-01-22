@@ -12,17 +12,17 @@ class GridEnv(MultiAgentGrid):
         self.gridSize = gridSize
         self.landMarksNum = landMarks
         self.defineMoves()
-        self.reset_world(gridSize)
-
         if seed is not None:
             np.random.seed(seed)
 
-    def reset_world(self, gridsize):
+        self.reset_world()
+
+    def reset_world(self):
         self.landmarks = []
         self.steps = 0
 
         self.agent = np.random.randint(low=0,
-                                       high=gridsize,
+                                       high=self.gridSize,
                                        size=2)
 
         self.target = np.random.randint(low=0,
@@ -30,7 +30,7 @@ class GridEnv(MultiAgentGrid):
 
         for i in range(self.landMarksNum):
             self.landmarks.append(np.random.randint(low=0,
-                                                    high=gridsize,
+                                                    high=self.gridSize,
                                                     size=2))
 
     def getState(self, agentNum, addId=True):

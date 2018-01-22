@@ -20,5 +20,8 @@ envs4 = env4(gridSize=20, landMarks=3)
 #  for i in range(50):
     #  envs3.act(np.random.randint(0, 5, 4), viz=True)
 
-for i in range(50):
-    envs4.act(np.random.randint(0,5), viz=True)
+#  for i in range(50):
+    #  envs4.act(np.random.randint(0, 5), viz=True)
+
+print(envs4.getState(0))
+print(envs4.getState(1))
