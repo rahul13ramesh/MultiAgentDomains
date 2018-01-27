@@ -64,6 +64,23 @@ class GridEnv(MultiAgentGrid):
         self.steps += 1
         reward = 0.0
 
+        # Update states of all agents
+        for ind, act in enumerate(actions):
+            if act == self.NOOP:
+                pass
+            elif act == self.LEFT:
+                self.agents[ind] = (self.agents[ind] + [0, -1] +
+                                    self.gridSize) % self.gridSize
+            elif act == self.RIGHT:
+                self.agents[ind] = (self.agents[ind] + [0, 1] +
+                                    self.gridSize) % self.gridSize
+            elif act == self.DOWN:
+                self.agents[ind] = (self.agents[ind] + [1, 0] +
+                                    self.gridSize) % self.gridSize
+            elif act == self.UP:
+                self.agents[ind] = (self.agents[ind] + [-1, 0] +
+                                    self.gridSize) % self.gridSize
+
         #  Negative reward proportional to closest landmark
         for i in range(self.numAgents):
 
@@ -97,22 +114,7 @@ class GridEnv(MultiAgentGrid):
                 if j != i and (np.sum(self.agents[i] == self.agents[j]) == 2):
                     reward -= self.gridSize
 
-        # Update states of all agents
-        for ind, act in enumerate(actions):
-            if act == self.NOOP:
-                pass
-            elif act == self.LEFT:
-                self.agents[ind] = (self.agents[ind] + [0, -1] +
-                                    self.gridSize) % self.gridSize
-            elif act == self.RIGHT:
-                self.agents[ind] = (self.agents[ind] + [0, 1] +
-                                    self.gridSize) % self.gridSize
-            elif act == self.DOWN:
-                self.agents[ind] = (self.agents[ind] + [1, 0] +
-                                    self.gridSize) % self.gridSize
-            elif act == self.UP:
-                self.agents[ind] = (self.agents[ind] + [-1, 0] +
-                                    self.gridSize) % self.gridSize
+            reward = reward/self.gridSize
         if viz:
             self.visualizeState()
 

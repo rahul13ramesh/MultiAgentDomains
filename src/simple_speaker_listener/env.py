@@ -59,13 +59,6 @@ class GridEnv(MultiAgentGrid):
         self.steps += 1
         reward = 0.0
 
-        x1, y1 = self.agent
-        x2, y2 = self.landmarks[self.target]
-
-        xdist = min(abs(x1 - x2), self.gridSize - abs(x1 - x2))
-        ydist = min(abs(y1 - y2), self.gridSize - abs(y1 - y2))
-        reward = reward - xdist - ydist
-
         #  Update states of all agents
         if action == self.NOOP:
             pass
@@ -83,6 +76,15 @@ class GridEnv(MultiAgentGrid):
                           self.gridSize) % self.gridSize
         if viz:
             self.visualizeState()
+
+        x1, y1 = self.agent
+        x2, y2 = self.landmarks[self.target]
+
+        xdist = min(abs(x1 - x2), self.gridSize - abs(x1 - x2))
+        ydist = min(abs(y1 - y2), self.gridSize - abs(y1 - y2))
+        reward = reward - xdist - ydist
+
+        reward = reward / self.gridSize
 
         return reward
 
